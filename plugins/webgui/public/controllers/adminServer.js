@@ -57,6 +57,7 @@ app.controller('AdminServerController', ['$scope', '$http', '$state', 'moment', 
         if(servers.map(s => s.id).join('') === $scope.servers.map(s => s.id).join('')) {
           $scope.servers.forEach((server, index) => {
             server.host = servers[index].host;
+            server.hostname = servers[index].hostname;
             server.name = servers[index].name;
             server.port = servers[index].port;
             adminApi.getServerFlow(server.id).then(flow => {
@@ -316,6 +317,7 @@ app.controller('AdminServerController', ['$scope', '$http', '$state', 'moment', 
       $http.post('/api/admin/server', {
         name: $scope.server.name,
         address: $scope.server.address,
+        hostname: $scope.server.hostname,
         port: +$scope.server.port,
         password: $scope.server.password,
         method: $scope.server.method,
@@ -357,6 +359,7 @@ app.controller('AdminServerController', ['$scope', '$http', '$state', 'moment', 
       $scope.server = {
         name: success.data.name,
         address: success.data.host,
+        hostname: success.data.hostname,
         port: +success.data.port,
         password: success.data.password,
         method: success.data.method,
@@ -366,6 +369,7 @@ app.controller('AdminServerController', ['$scope', '$http', '$state', 'moment', 
       $http.put('/api/admin/server/' + $stateParams.serverId, {
         name: $scope.server.name,
         address: $scope.server.address,
+        hostname: $scope.server.hostname,
         port: +$scope.server.port,
         password: $scope.server.password,
         method: $scope.server.method,
